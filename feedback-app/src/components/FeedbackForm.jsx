@@ -19,7 +19,6 @@ function FeedbackForm() {
       setText(feedbackEdit.item.text);
       setRating(feedbackEdit.item.rating);
     } else {
-      console.log('No hello WOrld for you');
     }
     return () => {};
   }, [feedbackEdit]);
