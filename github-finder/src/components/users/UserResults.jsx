@@ -4,7 +4,7 @@ import UserItem from './UserItem';
 import GithubContext from '../../context/github/GithubContext';
 
 function UserResults() {
-  const { fetchUsers, users, isLoading } = useContext(GithubContext);
+  const { users, isLoading } = useContext(GithubContext);
 
   if (isLoading) {
     return <Spinner />;
