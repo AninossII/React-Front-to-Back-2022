@@ -5,17 +5,23 @@ import { Link } from 'react-router-dom';
 import Spinner from '../components/layout/Spinner';
 import RepoList from '../components/repos/RepoList';
 import GithubContext from '../context/github/GithubContext';
+import { getUserAndRepos } from '../context/github/GithubAction';
 
 function UserPage() {
-  const { getUser, user, isLoading, getRepos, repos } =
-    useContext(GithubContext);
+  const { user, isLoading, dispatch, repos } = useContext(GithubContext);
 
   const params = useParams();
 
   useEffect(() => {
-    getUser(params.login);
-    getRepos(params.login);
-  }, []);
+    dispatch({ type: 'SET_LOADING' });
+
+    const getUserData = async () => {
+      const userData = await getUserAndRepos(params.login);
+      dispatch({ type: 'GET_USER_AND_REPOS', payload: userData });
+    };
+
+    getUserData();
+  }, [dispatch, params.login]);
 
   const {
     name,
@@ -116,7 +122,6 @@ function UserPage() {
             </div>
           </div>
         </div>
-
         <div className='w-full py-5 mb-6 rounded-lg shadow-md bg-base-100 stats'>
           <div className='stat'>
             <div className='stat-figure text-secondary'>
