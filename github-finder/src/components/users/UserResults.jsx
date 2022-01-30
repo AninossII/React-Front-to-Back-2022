@@ -1,10 +1,10 @@
 import { useContext } from 'react';
 import Spinner from '../layout/Spinner';
-import Useritem from './Useritem';
+import UserItem from './UserItem';
 import GithubContext from '../../context/github/GithubContext';
 
 function UserResults() {
-  const { users, isLoading } = useContext(GithubContext);
+  const { fetchUsers, users, isLoading } = useContext(GithubContext);
 
   if (isLoading) {
     return <Spinner />;
@@ -12,7 +12,7 @@ function UserResults() {
     return (
       <div className='grid grid-cols-1 gap-8 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2'>
         {users.map((user) => (
-          <Useritem key={user.id} user={user} />
+          <UserItem key={user.id} user={user} />
         ))}
       </div>
     );
